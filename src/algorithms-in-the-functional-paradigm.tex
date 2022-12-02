@@ -1,0 +1,189 @@
+\documentclass{report}
+% Packages
+\usepackage{sectsty}
+\usepackage{hyperref}
+\usepackage{listings}
+% Settings
+\allsectionsfont{\centering}
+\setcounter{tocdepth}{3}
+\setcounter{secnumdepth}{3}
+% Commands
+
+% #1 Name #2 Last Name #3 Book name #4 Date 
+\newcommand{\cbook}[4]{
+  #2, #1. \textit{#3}. #4. \newline
+}
+% #1 Name #2 Last Name #3 Site name #4 Date #5 Link
+\newcommand{\csite}[5]{
+  #2, #1. \textit{#3}. #4. \textit{\url{#5}} \newline
+}
+\newcommand{\link}[4]{
+  #1. \textit{#2}. \textit{\url{#4}}. #3 \newline
+}
+
+% About
+\title{Algorithms in the functional paradigm.}
+\author{kavulox}
+
+
+
+\begin{document}
+
+\maketitle
+
+
+\tableofcontents
+
+
+
+\chapter{Introduction}
+
+According to the StackOverflow Developer Survey 2022, the vast majority of languages in use are either Object Oriented (declarative) or imperative. Having a diverse language ecosystem is crucial to having innovation in the programming world, but it seems that as the years progress, people tend to move more towards whatever is popular, rather than utilizing tools made in the past.
+Throughout the past decade, interest in functional programming languages has been slowly growing, as people tend to write better, more elegant code after learning a functional language.
+Throughout the length of this paper, we will talk about the ways functional programming can be used to implement better algorithms, and how it can be used to make you a better programmer overall. We will also include some text on how the functional programming paradigm compares to other modern programming paradigms that are also heavily used.
+
+\chapter{The history of Functional programming}
+\section{What is a functional programming language?}
+At a high level, a purely functional programming language is a programming language where the only abstraction is a function. Functional languages are often based around the Lambda Calculus, which is a topic based in mathematics (another common interest for functional programmers.) 
+Functional languages typically utilize features in the language like recursion, immutable data/variables, first class functions, etc.
+\subsection{Why are functional languages not used more?}
+Although languages that are based around the functional programming paradigm are not functionally harder than any other paradigm, most people seem to perceive them to be much harder than the imperative languages that they might have already been familiar with.
+It is a well known fact that it is harder to teacher a functional language to an imperative programmer, than to teach an imperative language to a functional programmer. There are many reasons for this, and I'll cover some of them quickly.
+\subsubsection{Syntax}
+Functional languages promote a way of writing code that results in the end products having a much cleaner and more elegant codebase. This means that developers need to come up with clever solutions to problems, which can be something that is difficult for people who are just getting started with a functional language. Functional languages also encourage use of different language features that are somewhat unique to the general functional programming paradigm. For example, currying is something that can be heavily used in languages that support it, yet might not seem like a useful feature to a developer who is approaching functional programming for the first time.
+\subsubsection{Purity}
+Although this does not apply to all functional programming languages, the purity of languages like Haskell, result in your code either being purely functional, or not at all. When writing code in such a language, you have to already be familiar with the topic of functional programming, which might be an issue to someone who assumes that the language may support some features that it natively does not. This is also an issue with tutorials that tell people that when learning a language like Haskell, that they should forget most, to all of what they knew already about programming.
+\section{Where it all started}
+\subsection{Lambda Calculus}
+To explain functional programming, we first need to take a step back and explain the core of every Functional language, the Lambda Calculus. The Lambda calculus, developed in the 1930s by mathematician Alonzo Church, was a mathematical way of expressing computation through functions \& function application. The Lambda calculus was shown to be equivalent to Alan Turing's Turing Machines, which is based of state, rather than function application.
+Today, most modern programming languages support some implementation of the lambda calculus, with some even supporting most features derived from it.
+The lambda calculus introduced multiple mathematical topics that could be expressed in code, with some of the most famous being things like Currying, the lambda notation, high order functions, and many more.
+\subsection{The first functional language}
+If you do not consider Lambda calculus as a functional programming language, the first official functional language would be Lisp. Lisp was originally developed in the late 1950s by John McCarthy at MIT. Lisp is a high level, functional programming language which is famous for the ways that you can extend the syntax through macros. Many people consider Lisp to have the best macro system available in a programming language, even in comparison to things like the C pre-processor 
+When Lisp was originally conceived, the functions were defined using lambda notation, and was extended to support recursive functions. It also was originally made to be multi-paradigm, though heavily used with functional standards. Although Lisp is a very old language, it is still used by developers to implement different pieces of software, but it was also very influential in the development of more modern languages such as Clojure \& Scheme.
+\subsection{Modern functional programming languages}
+Nowadays, most programmers who specialize in functional languages will most likely be using a Lisp variant (Scheme, Clojure, Common Lisp, etc.) or Haskell. There are many other languages that adopt functional programming, or provide language features to make it easier to write in a functional way. For example, JavaScript is an Object Oriented language, but with a bit of work, you are able to write JavaScript code in a functional way. Here is an example piece of code in JavaScript, with OOP, and another using a functional style.
+% Note: Add syntax highlighting
+
+Firstly, the OOP version.
+
+\begin{lstlisting}
+box = {
+  width: 15,
+  height: 15,
+  length: 15,
+  volume: function () {
+    return this.width * this.height * this.length;
+  },
+  surface_area: function () {
+    if !(this.width == 0 || this.height == 0 || this.length == 0) {
+      return undefined;
+    }
+    return ((2 * (this.width * this.length)) + 
+      (2 * (this.length * this.height)) + (2 * (this.height * this.width)));
+  }
+};
+console.log(box.volume());
+\end{lstlisting}
+
+And now for the Functional version.
+
+\begin{lstlisting}
+area = function (x, y, z) {
+  return x * y * z;
+};
+surface_area = function (width, length, height) {
+  if !(width == 0 || height == 0 || length == 0) {
+    return undefined;
+  }
+  return ((2 * (width * length)) + 
+    (2 * (length * height)) + (2 * (height * width)));
+}
+\end{lstlisting}
+
+Rather than having an object which contains the data of which the functions are manipulating, the functional equivalent only has the functions to process the data. While both examples are fairly simple, on a large code base, you may notice that having an OOP based language might lead it it being harder to build off of, even if it might be easier at first.
+
+
+\chapter{Comparison of different programming paradigms when crafting algorithms}
+Although all algorithms can be implemented in a Turing complete language, regardless of the programming paradigm, some algorithms might be suited better for working with a unique paradigm.
+\section{The Imperative Programming Paradigm}
+The Imperative programming paradigm is a type of programming where you specify what you want the computer to do, whilst also explaining exactly how you want it to do it. A good \& small example of imperative programming in action would be this following code example.
+\begin{lstlisting}
+#define MAX_LEN 1024
+
+int main() {
+  int arr[MAX_LEN];
+  for (int i = 0; i < 1024; i++) {
+    arr[i] = i * i;
+  }
+}
+\end{lstlisting}
+Here you can view how we specify exactly what we want it to do, and how. This is also why we call it imperative.
+
+We will now cover some basic examples of algorithms made in some imperative languages.
+
+\subsection{Bubble Sort - C} % ADD MORE EXAMPLES (BUBBLE SORT, PASSWORD CRACKER, FIBONACCI)
+
+\begin{lstlisting}
+void swap( int *x, int *y ) {
+  int tmp = *x;
+  *x = *y;
+  *y = tmp;
+}
+
+void sort( int arr[] ) {
+  int n = sizeof(arr)/sizeof(arr[0]);
+  for (int i = 0; i < n - 1; i++) {
+    for (int j = 0; j < n - i - 1; j++) {
+      if (arr[j] > arr[j+1]) {
+        swap( &arr[j], &arr[j+1] );
+      }
+    }
+  }
+}
+\end{lstlisting}
+Here we can view a fairly simple implementation of Bubble Sort in C. We can see the power of imperative programming through this example, even though it is only a simple example. When viewing the swap function, you can see that it is using mutable variables to store the value of each in the other, rather than just specifying a return value. In the general sort function, it is apparant that the use of for loops in very much in use for this algorithm, whilst also being part of loops, which are very important for an imperative programming language.
+
+\subsection{Fibonacci - PHP}
+
+\begin{lstlisting}
+<?php
+function fib($number){
+  if ($number == 0)
+      return 0;
+  else if ($number == 1)
+      return 1;
+  else
+      return (fib($number-1) + fib($number-2));
+}
+?>
+\end{lstlisting}
+Here we can observe a relatively paradigm independent algorithm. This Fibonacci function utilizes general if statements, which most languages contain, and also utilizes recursion, which is something you are able to find a lot in functional paradigm programs.
+
+\section{The Object Oriented Programming Paradigm}
+The Object Oriented Programming paradigm (OOP) is a type of programming where you base your code on the concept of objects in code. OOP is designed to be partially based off reality, where you have objects in the real world which have multiple properties about them, and also support different methods. OOP is a very common property of many programming languages, as it is typically well received by the developers, and is already one of the most popular programming paradigms. A good example of OOP in action would be the following Java example.
+\begin{lstlisting}
+class Robot {
+  int build_number;
+  String name;
+  public static void say_my_name() {
+    System.out.println(this.name);
+  }
+}
+\end{lstlisting}
+In Java, everything is expressed as an object.
+
+\chapter{Algorithm Design}
+Throughout this chapter, we will cover some basic algorithm implementations in both Haskell, and Common Lisp. We will also cover the methodology behind the design, and why the functional implementation is more secure (when implemented correctly) than its non functional equivalents.
+
+
+\newpage
+\chapter{Sources}
+\link{StackOverflow}{StackOverflow Developer Survey 2022}{May 2022}{https://survey.stackoverflow.co/2022/}
+\link{Wikipedia}{Lambda Calculus}{Edited on 1 December 2022}{https://en.wikipedia.org/wiki/Lambda_calculus}
+\csite{John}{McCarthy}{History of Lisp}{12 February 1979}{http://jmc.stanford.edu/articles/Lisp/Lisp.pdf}
+\link{IONOS}{Imperative programming: Overview of the oldest programming paradigm}{2 November 2022}{https://www.ionos.com/digitalguide/websites/web-development/imperative-programming/}
+
+
+
+\end{document}
